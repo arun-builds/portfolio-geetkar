@@ -1,10 +1,13 @@
 "use client"
 import PortfolioContent from "./PortfolioContent";
 import Masonry from 'react-masonry-css';
+import { Pencil } from "lucide-react";
+import { useEditMode } from "@/contexts/EditModeContext";
 
 type AspectRatio = 'video' | 'square';
 
 export default function Portfolio() {
+    const { isEditMode, toggleEditMode } = useEditMode();
     const portfolioItems = [
         { id: 1, src: "https://www.youtube.com/embed/-YlmnPh-6rE", aspect: "video" },
         { id: 2, src: "https://www.youtube.com/embed/_aCQu35NA7M", aspect: "square" },
@@ -38,9 +41,14 @@ export default function Portfolio() {
       };
   
       return (
+        <div className="">
+          <div className="flex justify-between items-center mb-4">
+          <span className="text-3xl font-semibold w-full font-mono text-yellow-50 ml-6">Portfolio</span>
+          <Pencil size={20} className={`${isEditMode ? "" : "hidden"}`} />
+          </div>
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="my-masonry-grid flex  gap-4 p-4"
+            className={`my-masonry-grid flex  gap-4 p-4 ${isEditMode ? "bg-zinc-800 p-2 rounded-xl border" : ""}`}
             columnClassName="my-masonry-grid_column"
           >
             {portfolioItems.map((item) => (
@@ -49,5 +57,6 @@ export default function Portfolio() {
                 </div>
             ))}
           </Masonry>
+        </div>
       )
 }
