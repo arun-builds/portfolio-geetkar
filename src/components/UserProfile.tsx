@@ -1,6 +1,6 @@
 "use client";
 import UserAvatar from "@/components/UserAvatar";
-import { Pencil } from "lucide-react";
+import { Kanban, Landmark, MapPin, Pencil } from "lucide-react";
 import { useEditMode } from "@/contexts/EditModeContext";
 import {
     Dialog,
@@ -10,7 +10,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import UserEdit from "./UserEdit";
+import UserEdit from "./EditUser";
 export default function UserProfile({ userImage, name, username }: { userImage: string, name: string, username: string }) {
     const { isEditMode, toggleEditMode } = useEditMode();
     return (
@@ -19,14 +19,14 @@ export default function UserProfile({ userImage, name, username }: { userImage: 
 
                 <UserAvatar usedIn="profile" src={userImage} />
 
-                <div className="flex flex-col gap- ">
+                <div className="flex flex-col gap-1 ">
                     <div className="flex items-center justify-center gap-2">
                         <h1 className="text-2xl font-bold">{name}</h1>
                         <h4 className="text-sm text-gray-500">@{username}</h4>
                     </div>
-                    <div>
-                        <p className="text-sm text-gray-100">Music Producer</p>
-                        {/* <p className="text-sm text-gray-100">Mumbai, India</p> */}
+                    <div className="flex flex-col gap-1">
+                        <span className="flex items-center gap-1"><Kanban size={16} /> <p className="text-md  text-gray-100 ">Music Producer</p></span>
+                        <span className="flex items-center gap-1"><MapPin size={16} /> <p className="text-sm text-gray-100 ">Mumbai, India</p></span>
                     </div>
                 </div>
             </div>

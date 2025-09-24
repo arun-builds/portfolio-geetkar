@@ -42,8 +42,8 @@ export default function Portfolio() {
   
       return (
         <div className="">
-          <div className="flex justify-between items-center mb-4">
-          <span className="text-3xl font-semibold w-full font-mono text-yellow-50 ml-6">Portfolio</span>
+          <div className="flex justify-between items-center mb-4 ">
+          <span className="text-3xl font-semibold  font-mono text-yellow-50  ml-6 pr-2 border-b border-yellow-400">Portfolio</span>
           <Pencil size={20} className={`${isEditMode ? "" : "hidden"}`} />
           </div>
           <Masonry

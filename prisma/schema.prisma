@@ -21,6 +21,9 @@ model User {
   username      String    @unique  @default(ulid())
   emailVerified Boolean   @default(false)
   image         String?
+  bio           String?
+  location      String? 
+  profession    String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
   profileLinks ProfileLink[]
@@ -95,6 +98,7 @@ model PortfolioItem {
   url       String
   image     String?
   userId    String
+  sortOrder Int @default(1)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("portfolio_item")
