@@ -1,31 +1,103 @@
 "use client";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import ProfileButton from "./ProfileButton";
 import { useEditMode } from "@/contexts/EditModeContext";
 import { DialogTitle, Dialog, DialogTrigger, DialogContent, DialogHeader, DialogDescription } from "./ui/dialog";
 import { ReactElement, useEffect, useState } from "react";
 import AllProfileButtons from "./AllProfileButtons";
+import { Button } from "./ui/button";
+import { ProfileLink } from "@/generated/prisma";
+
 
 
 export default function ProfileButtons() {
     const { isEditMode, toggleEditMode } = useEditMode();
-    
-  
-   
+    const [profileLinks, setProfileLinks] = useState<ProfileLink[]>([]);
+    console.log(profileLinks);
+    console.log(profileLinks.length);
+
+
+
+    useEffect(() => {
+        const fetchProfileLinks = async () => {
+            try {
+                const response = await fetch("/api/getProfileLinks");
+                const data = await response.json();
+                console.log(data);
+                setProfileLinks(data);
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+        fetchProfileLinks();
+    }, []);
+
+    const handleAddProfile = async () => {
+        try {
+            const response = await fetch("/api/addProfileLink", {
+                method: "POST",
+                body: JSON.stringify({ platform: "Spotify", url: "randomurl", followers: 0 })
+            });
+            const data = await response.json();
+            console.log(data);
+            setProfileLinks([...profileLinks, data]);
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
+
+    const handleDeleteProfile = async (id: number) => {
+        try {
+           
+            setProfileLinks(profileLinks.filter((profileLink) => profileLink.id !== id));
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
+
     return (
-        < div className={`grid grid-cols-2 max-md:justify-center gap-4 w-full items-end ${isEditMode ? "bg-zinc-800 p-4 rounded-xl border " : ""} `}>
+        < div className={`grid grid-cols-2 max-md:justify-center  gap-4 w-full items-end ${isEditMode ? "bg-zinc-800 p-4 rounded-xl border " : ""} `}>
 
-            <ProfileButton platform="youtube" />
+
+            {profileLinks
+                .slice(0, 3)
+                .map((profileLink) => (
+                    <div key={profileLink.id}>
+
+                        <ProfileButton id={profileLink.id} platform={profileLink.platform} url={profileLink.url} handleDeleteProfile={handleDeleteProfile} />
+                    </div>
+                ))}
+
+            {profileLinks.length < 4 && isEditMode && (
+                <div >
+                    <Button onClick={handleAddProfile} className="w-full bg-white">Add Profile <Plus className="font-bold" /></Button>
+                </div>
+            )}
+            {/* <ProfileButton platform="youtube" />
             <ProfileButton platform="spotify" />
-            <ProfileButton platform="youtube" />
+            <ProfileButton platform="youtube" /> */}
 
-            <Dialog>
-                <DialogTrigger><ProfileButton platform="other" /></DialogTrigger>
-                <DialogContent>
-                    <DialogTitle>Add Profile</DialogTitle>
-                    <AllProfileButtons />
-                </DialogContent>
-            </Dialog>
+            {profileLinks.length > 3 && (
+                <Dialog>
+                    <DialogTrigger>
+                        <div className="bg-zinc-800 text-gray-100 p-1 border hover:bg-zinc-800/80 transition-all  w-full flex items-center justify-center gap-2 rounded-md hover:cursor-pointer ">
+
+                            <h3 className="text-md flex items-center gap-4">
+                                More...
+                            </h3>
+
+                        </div>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogTitle>Add Profile</DialogTitle>
+                        <AllProfileButtons />
+                    </DialogContent>
+                </Dialog>
+            )}
         </div>
     )
 }

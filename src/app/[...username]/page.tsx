@@ -15,6 +15,7 @@ const param = await params;
     })
 
     console.log(session);
+
     
     
     return (
