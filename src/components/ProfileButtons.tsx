@@ -81,7 +81,7 @@ export default function ProfileButtons() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>Add Profile</DialogTitle>
-                        <AllProfileButtons profileLinks={profileLinks} setProfileLinks={setProfileLinks} />
+                        <AllProfileButtons profileLinks={profileLinks} setProfileLinks={setProfileLinks} handleDeleteProfile={handleDeleteProfile} />
                     </DialogContent>
                 </Dialog>
             )}
