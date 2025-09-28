@@ -7,6 +7,7 @@ import { ReactElement, useEffect, useState } from "react";
 import AllProfileButtons from "./AllProfileButtons";
 import { Button } from "./ui/button";
 import { ProfileLink } from "@/generated/prisma";
+import AddProfileLink from "./AddProfileLink";
 
 
 
@@ -33,21 +34,7 @@ export default function ProfileButtons() {
         fetchProfileLinks();
     }, []);
 
-    const handleAddProfile = async () => {
-        try {
-            const response = await fetch("/api/addProfileLink", {
-                method: "POST",
-                body: JSON.stringify({ platform: "Spotify", url: "randomurl", followers: 0 })
-            });
-            const data = await response.json();
-            console.log(data);
-            setProfileLinks([...profileLinks, data]);
-        } catch (error) {
-            console.error(error);
-        }
-
-    }
-
+    
     const handleDeleteProfile = async (id: number) => {
         try {
            
@@ -60,7 +47,7 @@ export default function ProfileButtons() {
 
 
     return (
-        < div className={`grid grid-cols-2 max-md:justify-center  gap-4 w-full items-end ${isEditMode ? "bg-zinc-800 p-4 rounded-xl border " : ""} `}>
+        < div className={`grid grid-cols-2 max-md:justify-center  gap-4 items-end ${isEditMode ? "bg-zinc-800 p-4 rounded-xl border " : ""}`}>
 
 
             {profileLinks
@@ -73,8 +60,8 @@ export default function ProfileButtons() {
                 ))}
 
             {profileLinks.length < 4 && isEditMode && (
-                <div >
-                    <Button onClick={handleAddProfile} className="w-full bg-white">Add Profile <Plus className="font-bold" /></Button>
+                <div className={`${profileLinks.length < 1 ? "col-span-2"  : ""}`}>
+                <AddProfileLink setProfileLinks={setProfileLinks} profileLinks={profileLinks} />
                 </div>
             )}
             {/* <ProfileButton platform="youtube" />
@@ -94,7 +81,7 @@ export default function ProfileButtons() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>Add Profile</DialogTitle>
-                        <AllProfileButtons />
+                        <AllProfileButtons profileLinks={profileLinks} setProfileLinks={setProfileLinks} />
                     </DialogContent>
                 </Dialog>
             )}

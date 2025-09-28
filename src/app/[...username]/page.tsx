@@ -22,7 +22,7 @@ const param = await params;
         <div className="md:w-6xl min-h-screen md:mx-auto p-4  md:  md: border-yellow-500/10 flex flex-col max-md:items-center  gap-8">
             <AppHeader userImage={session?.user?.image || ""} />
             <div className="flex justify-around items-center gap-4  p-2">
-                <div className="flex flex-col gap-8 max-w-lg min-w-lg">
+                <div className="flex flex-col gap-8 max-w-lg min-w-lg ">
                     <UserProfile userImage={session?.user?.image || ""} name={session?.user?.name || ""} username={session?.user?.username || ""} profession={session?.user?.profession || ""} location={session?.user?.location || ""} />
                     <UserBio bio={session?.user?.bio || ""} />
                     <ProfileButtons />

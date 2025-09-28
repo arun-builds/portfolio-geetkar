@@ -21,7 +21,7 @@ export default function UserBio({ bio }: { bio: string }) {
     const router = useRouter();
     return (
         <div>
-        <span className="flex items-center gap-2">
+        <span className="flex items-start gap-2">
             <p className={`${isEditMode ? " bg-zinc-800 p-2 px-4 rounded-xl border" : ""} italic`} >{bio}</p>
             {/* <Pencil size={20} className={`${!isEditMode ? "hidden" : ""} hover:cursor-pointer hover:text-yellow-400`} /> */}
         

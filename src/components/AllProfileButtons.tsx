@@ -1,16 +1,15 @@
+import AddProfileLink from "./AddProfileLink";
 import ProfileButton from "./ProfileButton";
-import { Button } from "./ui/button";
-import { useEditMode } from "@/contexts/EditModeContext";
+import { ProfileLink } from "@/generated/prisma";
 
-export default function AllProfileButtons(){
-    const { isEditMode, toggleEditMode } = useEditMode();
+export default function AllProfileButtons({profileLinks,setProfileLinks}: {profileLinks: ProfileLink[],setProfileLinks: (profileLinks: ProfileLink[]) => void}){
     return(
         < div className={`grid grid-cols-2 max-md:justify-center gap-4 w-full items-end }`}>
-            <Button className={`${!isEditMode?"hidden":""}`}>Add</Button>
-            <ProfileButton platform="youtube" />
-            <ProfileButton platform="spotify" />
-            <ProfileButton platform="youtube" />
-            <ProfileButton platform="youtube" />
+            <AddProfileLink setProfileLinks={setProfileLinks} profileLinks={profileLinks} />
+            {profileLinks.map((profileLink) => (
+                <ProfileButton key={profileLink.id} id={profileLink.id} platform={profileLink.platform} url={profileLink.url} handleDeleteProfile={() => {}} />
+            ))}
+            
         </div>
     )
 }

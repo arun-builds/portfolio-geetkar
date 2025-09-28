@@ -71,10 +71,13 @@ const handleNavigate = () => {
                             Edit your {platform} profile.
                         </DialogDescription>
                     </DialogHeader>
-                    <form action={handleSubmit}>
+                    <form action={handleSubmit} className="flex flex-col gap-4">
                         <Input type="text" name="url" id="url" placeholder="Enter your url" defaultValue={url} />
-                        <Button type="submit">Save</Button>
-                        <Button type="button" onClick={() => handleDelete(id)}>Delete</Button>
+                        <div className="flex items-center justify-between">
+                        <Button variant="destructive" type="button" onClick={() => handleDelete(id)}>Delete</Button>
+                        <Button  type="submit">Save</Button>
+                        </div>
+                        
                     </form>
                 </DialogContent>
             </Dialog>

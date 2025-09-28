@@ -10,7 +10,7 @@ export default function AppHeader({userImage}: {userImage: string}) {
             <h1 className="text-3xl font-semibold font-mono text-yellow-400 tracking-tighter">Geetkar</h1>
             <div className="flex items-center justify-center gap-4 text-sm">
                 <div onClick={toggleEditMode} className={`${isEditMode?"text-yellow-400":""} flex items-center gap-2 bg-transparent  text-gray-100  hover:text-yellow-400 p-0 hover:cursor-pointer transition-colors`}><Pencil size={20} /><span className="max-md:hidden">Edit Mode</span></div>
-                <Settings2 size={24} className="hover:text-yellow-400 hover:cursor-pointer transition-colors" />
+                <span className="flex items-center gap-2 hover:text-yellow-400 hover:cursor-pointer transition-colors"><Settings2 size={24} />Settings</span>
                 <UserAvatar usedIn="appHeader" src={userImage} />
             </div>
         </div>

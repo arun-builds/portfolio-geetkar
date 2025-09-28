@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const { platform, url, followers } = await request.json();
     try {
         const profileLink = await prisma.profileLink.create({
-            data: { platform, url, userId: session.user.id, followers: followers }
+            data: { platform, url, userId: session.user.id, followers: 0 }
         });
         return NextResponse.json(profileLink);
     } catch (error) {
