@@ -8,24 +8,26 @@ import AllProfileButtons from "./AllProfileButtons";
 import { Button } from "./ui/button";
 import { ProfileLink } from "@/generated/prisma";
 import AddProfileLink from "./AddProfileLink";
+import {useParams} from "next/navigation";
 
 
 
 export default function ProfileButtons() {
     const { isEditMode, toggleEditMode } = useEditMode();
     const [profileLinks, setProfileLinks] = useState<ProfileLink[]>([]);
-    console.log(profileLinks);
-    console.log(profileLinks.length);
+    const params = useParams<{ username: string }>()
+
 
 
 
     useEffect(() => {
         const fetchProfileLinks = async () => {
             try {
-                const response = await fetch("/api/getProfileLinks");
+                const response = await fetch(`/api/getProfileLinks?username=${params.username}`);
                 const data = await response.json();
-                console.log(data);
-                setProfileLinks(data);
+                if(data){
+                    setProfileLinks(data.profileLinks);
+                }
             } catch (error) {
                 console.error(error);
             }
