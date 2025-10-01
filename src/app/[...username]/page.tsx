@@ -23,10 +23,10 @@ const username = param.username[0];
     
     
     return (
-        <div className="md:w-6xl min-h-screen md:mx-auto p-4  md:  md: border-yellow-500/10 flex flex-col max-md:items-center  gap-8">
+        <div className="md:w-6xl min-h-screen md:mx-auto p-4  md:  md: border-yellow-500/10 flex flex-col max-md:items-center  gap-8 "  >
             <AppHeader userImage={user?.image || ""} />
-            <div className="flex justify-around items-center gap-4  p-2">
-                <div className="flex flex-col gap-8 max-w-lg min-w-lg ">
+            <div className="flex justify-around items-center gap-4  p-2 ">
+                <div className="flex flex-col  gap-8 max-w-lg md:min-w-lg  ">
                     <UserProfile userImage={user?.image || ""} name={user?.name || ""} username={user?.username || ""} profession={user?.profession || ""} location={user?.location || ""} />
                     <UserBio bio={user?.bio || ""} />
                     <ProfileButtons />
